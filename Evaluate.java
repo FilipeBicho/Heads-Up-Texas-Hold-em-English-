@@ -37,6 +37,7 @@ public class Evaluate {
 	// Main method to analyze in which rank a hand belongs to
 	public int evaluateHand (ArrayList<Cards> player, ArrayList<Cards> table)
 	{
+
 		// Join player and table cards
 		joinCards(player, table);
 		
@@ -340,12 +341,17 @@ public class Evaluate {
 	// Straight
 	private Boolean isStraight()
 	{
+		
 		int straight = 0;
 		int max = 0;
 		int index = 0;
 		// Search for sequential cards
 		for(int i = 0; i < cards.size()-1; i++)
-		{			
+		{	
+			// If next card is the same as the actual card goes to the next iteration
+			if(Integer.valueOf(cards.get(i).getRank()).equals(cards.get(i+1).getRank()))
+				continue;
+							
 			if(Integer.valueOf(cards.get(i).getRank()).equals(cards.get(i+1).getRank()-1))
 			{
 				straight++;
@@ -359,6 +365,8 @@ public class Evaluate {
 			else
 				straight = 0;		
 		}
+		
+
 		
 		// If last card is a K and has a straight till 10 and the first card is an Ace then exists straight 10 - Ace
 		if(max >= 3 &&
