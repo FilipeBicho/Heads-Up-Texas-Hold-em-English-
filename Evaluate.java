@@ -96,7 +96,7 @@ public class Evaluate {
 	}
 	
 	// Royal Straight Flush
-	public boolean isRoyalStraightFlush()
+	private boolean isRoyalStraightFlush()
 	{
 		// Check if has a Straight Flush
 		if(isStraightFlush())
@@ -117,7 +117,7 @@ public class Evaluate {
 	}
 	
 	// Straight Flush
-	public boolean isStraightFlush() 
+	private boolean isStraightFlush() 
 	{
 		// Check if has a straight
 		if(isStraight())
@@ -153,7 +153,7 @@ public class Evaluate {
 	}
 	
 	// Four of a kind
-	public Boolean isFourOfAKind()
+	private Boolean isFourOfAKind()
 	{
 		if(rankRepetitions.containsValue(4))
 		{
@@ -168,7 +168,7 @@ public class Evaluate {
 	}
 	
 	// Full House
-	public Boolean isFullHouse()
+	private Boolean isFullHouse()
 	{
 		// if has a three of a kind
 		if(isThreeOfAKind())
@@ -281,7 +281,7 @@ public class Evaluate {
 	}
 	
 	// Flush
-	public Boolean isFlush()
+	private Boolean isFlush()
 	{
 		
 		// Check if it is flush with 7 cards
@@ -338,7 +338,7 @@ public class Evaluate {
 	}
 	
 	// Straight
-	public Boolean isStraight()
+	private Boolean isStraight()
 	{
 		int straight = 0;
 		int max = 0;
@@ -389,7 +389,7 @@ public class Evaluate {
 	}
 	
 	// Three of a kind
-	public Boolean isThreeOfAKind()
+	private Boolean isThreeOfAKind()
 	{
 		// If has a Three Of A Kind
 		if(rankRepetitions.containsValue(3))
@@ -448,7 +448,7 @@ public class Evaluate {
 	}
 
 	// Two Pairs
-	public Boolean isTwoPair()
+	private Boolean isTwoPair()
 	{
 		// Store all the keys that contains a pair
 		ArrayList<Integer> keys = new ArrayList<>();
@@ -496,7 +496,7 @@ public class Evaluate {
 	}
 	
 	// One Pair
-	public Boolean isPair()
+	private Boolean isPair()
 	{
 		if(rankRepetitions.containsValue(2))
 		{
@@ -515,7 +515,7 @@ public class Evaluate {
 	}
 
 	// High Card
-	public Boolean isHighCard() 
+	private Boolean isHighCard() 
 	{
 		// Check if cards has an Ace
 		if(Integer.valueOf(cards.get(0).getRank()).equals(0))
