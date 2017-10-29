@@ -122,31 +122,65 @@ public class Evaluate {
 	{
 		// Check if has a straight
 		if(isStraight())
-		{
-			// ArrayList to store straight suit
-			ArrayList<Integer> suitStraight = new ArrayList<>();	
-			// Declare HashMap to store suit repetitions
+		{	
+			// Store cards for this method
+			ArrayList<Cards> temp = new ArrayList<>();
+			// Declare HashMap to store rank repetitions
 			HashMap<Integer, Integer> straightRepetitions = new HashMap<Integer, Integer>();
+			// ArrayList to store cards suit
+			ArrayList<Integer> suitStraight = new ArrayList<>();
 			
-			// Initialize other cards rank
-			for(Cards c : hand)
+			// Test flush with just 5 cards
+			temp.addAll(cards);
+			cards.clear();
+			cards.addAll(hand);
+			hand.clear();
+			
+			// Initialize cards suit
+			for(Cards c : cards)
 				suitStraight.add(c.getSuit());
-					
+			
 			// Get suit repetitions
 			for(Integer count : suitStraight)
-				straightRepetitions.put(count, Collections.frequency(suitStraight, count));
-			
-			// Check for a straight
+				straightRepetitions.put(count, Collections.frequency(suitStraight, count));		
+				
 			if(straightRepetitions.containsValue(5))
 			{
+				// reset 
+				hand.addAll(cards);
+				cards.clear();
+				cards.addAll(temp);
 				result = "Straight Flush";
 				return true;
 			}
 			else
 			{
-				hand.clear();
+				cards.clear();
+				cards.addAll(temp);
+			}
+		}
+
+		// Check if has a flush
+		if(isFlush())
+		{
+			ArrayList<Cards> temp = new ArrayList<>();
+			temp.addAll(cards);
+			cards.clear();
+			cards.addAll(hand);
+			hand.clear();
+			if(isStraight())
+			{
+				System.out.println(cards);
+				System.out.println(hand);
+				return true;
+			}
+			else
+			{
+				cards.clear();
+				cards.addAll(temp);
 				return false;
 			}
+			
 		}
 		else
 			return false;
@@ -173,7 +207,7 @@ public class Evaluate {
 	{
 		// if has a three of a kind
 		if(isThreeOfAKind())
-		{		
+		{					
 			// three store the three of a kind
 			ArrayList<Cards> three = new ArrayList<>();
 			three.add(hand.get(0));
@@ -254,7 +288,7 @@ public class Evaluate {
 					return true;
 				}
 				// If has 1 pair
-				else if(Integer.valueOf(hand.size()).equals(4))
+				else if(Integer.valueOf(hand.size()).equals(2))
 				{
 					// Get the pair
 					pair.add(hand.get(0));
@@ -365,9 +399,7 @@ public class Evaluate {
 			else
 				straight = 0;		
 		}
-		
-
-		
+			
 		// If last card is a K and has a straight till 10 and the first card is an Ace then exists straight 10 - Ace
 		if(max >= 3 &&
 				Integer.valueOf(cards.get(index).getRank()).equals(12)
