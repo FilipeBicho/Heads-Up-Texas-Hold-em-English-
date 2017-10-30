@@ -61,7 +61,7 @@ public class Winner {
 	
 	// Method to find winner in straight flush draw
 	private int fourOfAKind(ArrayList<Cards> player1, ArrayList<Cards> player2) {
-		
+
 		// If both players have four of a kind of Aces
 		if(Integer.valueOf(player1.get(0).getRank()).equals(0) &&
 				Integer.valueOf(player2.get(0).getRank()).equals(0))
