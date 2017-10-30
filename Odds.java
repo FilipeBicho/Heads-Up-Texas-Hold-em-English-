@@ -9,7 +9,7 @@ import java.util.HashMap;
  * - Odds of the opponent has a good hand
  * - Odds of winning before the flop
  * Name: Filipe Andre de Matos Bicho
- * Last update: 29/10/2017
+ * Last update: 30/10/2017
  */
 public class Odds {
 
