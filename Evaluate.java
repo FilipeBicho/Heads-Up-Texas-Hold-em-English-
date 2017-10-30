@@ -170,8 +170,7 @@ public class Evaluate {
 			hand.clear();
 			if(isStraight())
 			{
-				System.out.println(cards);
-				System.out.println(hand);
+				result = "Straight Flush";
 				return true;
 			}
 			else
