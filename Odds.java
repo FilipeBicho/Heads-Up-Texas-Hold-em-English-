@@ -128,9 +128,7 @@ public class Odds {
 		
 		// initialize table and hand to receive multiples values
 		table.add(null);
-		
-		System.out.println(inDeck.size());
-		
+				
 		// Calculate all the odds for both players
 		for(int i = 0; i < inDeck.size(); i++)
 		{
@@ -289,9 +287,7 @@ public class Odds {
 		
 		// Get all cards combinations
 		opponentCombinations = getCombinations(inDeck, strInDeck);
-		
-		System.out.println(opponentCombinations.get(0).size());
-		
+				
 		// Initialize opponent cards
 		opponent.add(null);
 		opponent.add(null);
