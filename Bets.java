@@ -14,8 +14,8 @@ import java.util.Scanner;
 
 public class Bets {
 
-	// Choose the type of opponent
-	//Simulador computador = new Simulador();
+	public // Choose the type of opponent
+	Simulator computer = new Simulator();
 	
 	// Store the probability of both players win the game
 	private float[] playerOdds = new float[2];
@@ -81,10 +81,10 @@ public class Bets {
 	// Method to make bets before the flop
 	public float[] betsPreFlop(float[] pokerChips, int dealer, float[] odds, int gameMode, HashMap<Integer,ArrayList<Cards>> cards)
 	{
-		// Get Player cards
+		
+		// Get computers cards
 		this.cards.put(0, cards.get(0));
 		this.cards.put(1, cards.get(1));
-		
 		
 		// Initial round
 		this.round = 0;
@@ -200,10 +200,9 @@ public class Bets {
 	// Method to make bets after the flop
 	public float[] bets(float[] pokerChips, int dealer, float[] odds, int gameMode, int round, HashMap<Integer,ArrayList<Cards>> cards)
 	{
-		// Get Player cards
+		// Get Computer cards
 		this.cards.put(0, cards.get(0));
 		this.cards.put(1, cards.get(1));
-		
 		// Get table cards
 		this.cards.put(2, cards.get(2));
 		
@@ -348,7 +347,7 @@ public class Bets {
 		if(gameMode == 1 || (gameMode == 2 && player == 0) || (gameMode == 3 && player == 0)
 				|| (gameMode == 4 && player == 0) || (gameMode == 5 && player == 0))
 		{
-			System.out.println("player " + (player+1) + " defina a sua bet: ");
+			System.out.println("player " + (player+1) + " make your bet: ");
 			System.out.println("1 - Check ");
 			System.out.println("2 - Bet blind");
 			System.out.println("3 - Bet value");
@@ -580,10 +579,124 @@ public class Bets {
 			menuFold_Allin(player);
 	}
 	
-	// Retorna a opcão consoante o modo de jogo
-	public int[] gameMode(int player, int gameMode, int menu)
+	// Get the game option
+	private int[] gameMode(int player, int gameMode, int menu)
 	{
-		betOption[0] = input.nextInt();
+		switch(gameMode)
+		{
+			// User VS User
+			case 1:
+				betOption[0] = input.nextInt();
+				break;
+			// User VS Computer (passive)
+			case 2:
+				if(player == 0)
+					betOption[0] = input.nextInt();
+				else
+					betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				break;
+			// User VS Computer (aggressive)
+			case 3:
+				if(player == 0)
+					betOption[0] = input.nextInt();
+				else
+					betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				break;
+			// User VS Computer (Mix)
+			case 4:
+				if(player == 0)
+					betOption[0] = input.nextInt();
+				else
+					{
+					Random botRandom = new Random();
+					
+					int bot= botRandom.nextInt((1-0)+1) + 0;
+					
+					if(bot == 0)
+						betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+					else
+						betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+					}
+				break;
+				// User VS Computer (MFS)
+			case 5:
+				if(player == 0)
+					betOption[0] = input.nextInt();
+				else
+					betOption = computer.MFS(player, pokerChips,tempPot, playerOdds,bet,menu);
+				break;
+			// computer VS computer (passive VS aggressive)
+			case 6:
+				if(player == 0)
+					betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				else
+					betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				break;
+			// computer VS computer (passive VS mix)
+			case 7:
+				if(player == 0)
+					betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				else
+				{
+					Random botRandom = new Random();
+					
+					int bot= botRandom.nextInt((1-0)+1) + 0;
+					
+					if(bot == 0)
+						betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+					else
+						betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				}
+				break;
+			// computer VS computer (passive VS MFS)
+			case 8:
+				if(player == 0)
+					betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				else
+					betOption = computer.MFS(player, pokerChips,tempPot, playerOdds,bet,menu);
+				break;
+			// computer VS computer (aggressive VS mix)
+			case 9:
+				if(player == 0)
+					betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				else
+				{
+					Random botRandom = new Random();
+					
+					int bot= botRandom.nextInt((1-0)+1) + 0;
+					
+					if(bot == 0)
+						betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+					else
+						betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				}
+				break;
+			// computer VS computer (aggressive VS MFS)
+			case 10:
+				if(player == 0)
+					betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				else
+					betOption = computer.MFS(player, pokerChips,tempPot, playerOdds,bet,menu);
+				break;
+			// computer VS computer (mix VS MFS)
+			case 11:
+				if(player == 0)
+				{
+					Random botRandom = new Random();
+					
+					int bot= botRandom.nextInt((1-0)+1) + 0;
+					
+					if(bot == 0)
+						betOption = computer.computer_passive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+					else
+						betOption = computer.computer_aggressive(player, dealer, pokerChips, bet, tempPot, round, menu, cards, playerOdds);
+				}
+				else
+					betOption = computer.MFS(player, pokerChips,tempPot, playerOdds,bet,menu);
+				break;
+			
+		}
+		
 		return betOption;
 	}
 	
